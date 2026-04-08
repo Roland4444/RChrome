@@ -1,0 +1,15 @@
+[package]
+name = "rust_google"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+headless_chrome = "1.0.21"
+tokio = { version = "1.39.3", features = ["full"] }
+
+# Explicitly resolve mio version
+mio = "1.2.0"
+
+
+thirtyfour = "0.35.0"          # WebDriver клиент (требует chromedriver)
+anyhow = "1.0"                  # для простой обработки ошибок
