@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-headless_chrome = "1.0.21"
 tokio = { version = "1.39.3", features = ["full"] }
 
 # Explicitly resolve mio version
