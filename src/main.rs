@@ -40,23 +40,22 @@ use tokio::time::{sleep, Duration};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut caps = DesiredCapabilities::chrome();
-    caps.add_arg("--headless")?; 
-    caps.add_arg("--disable-gpu")?; 
-    caps.add_arg("--no-sandbox")?; 
-    caps.add_arg("--disable-dev-shm-usage")?; 
-    caps.add_arg("--window-size=1920,1080")?; 
+    caps.add_arg("--headless")?;
+    caps.add_arg("--disable-gpu")?;
+    caps.add_arg("--no-sandbox")?;
+    caps.add_arg("--disable-dev-shm-usage")?;
+    caps.add_arg("--window-size=1920,1080")?;
 
     let driver = WebDriver::new("http://localhost:21000", caps).await?;
 
-    driver.get("https://ya.ru").await?;
+    driver.get("https://duckduckgo.com").await?;
     sleep(Duration::from_secs(2)).await;
 
-    let search_box = driver.find(By::Name("text")).await?;
+    let search_box = driver.find(By::Name("q")).await?;
     search_box.send_keys("Rust programming language").await?;
-
     search_box.send_keys(Key::Enter).await?;
 
-    driver.query(By::Css("body")).first().await?;
+    // Вместо нерабочего селектора просто ждём 3 секунды
     sleep(Duration::from_secs(3)).await;
 
     println!("Title: {:?}", driver.title().await?);
