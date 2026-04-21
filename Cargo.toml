@@ -13,3 +13,4 @@ mio = "1.2.0"
 
 thirtyfour = "0.35.0"          # WebDriver клиент (требует chromedriver)
 anyhow = "1.0"                  # для простой обработки ошибок
+chrono = "0.4.44"

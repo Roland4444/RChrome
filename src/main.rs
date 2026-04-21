@@ -36,6 +36,16 @@
 
 use thirtyfour::prelude::*;
 use tokio::time::{sleep, Duration};
+use chrono::Local;
+use std::path::Path;
+
+async fn take_screenshot(driver: &WebDriver, base_name: &str) -> Result<String, Box<dyn std::error::Error>> {
+    let timestamp = Local::now().format("%Y%m%d_%H%M%S").to_string();
+    let filename = format!("{}_{}.png", base_name, timestamp);
+    driver.screenshot(Path::new(&filename)).await?;
+    println!("Скриншот сохранён: {}", filename);
+    Ok(filename)
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -55,8 +65,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     search_box.send_keys("Rust programming language").await?;
     search_box.send_keys(Key::Enter).await?;
 
-    // Вместо нерабочего селектора просто ждём 3 секунды
     sleep(Duration::from_secs(3)).await;
+
+    take_screenshot(&driver, "duckduckgo_results").await?;
 
     println!("Title: {:?}", driver.title().await?);
 
